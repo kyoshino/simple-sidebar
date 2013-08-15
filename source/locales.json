@@ -1,0 +1,26 @@
+{
+  "en-US": {
+    "key-key": "P",
+    "key-modifiers": "accel,alt",
+    "menu-label": "Simple Sidebar",
+    "menu-accesskey": "S",
+    "sidebar-title": "Simple Sidebar",
+    "sidebar-url": "http://www.mozilla.org/en-US/firefox/partners/"
+  },
+  "fr": {
+    "key-key": "P",
+    "key-modifiers": "accel,alt",
+    "menu-label": "Sidebar Simple",
+    "menu-accesskey": "S",
+    "sidebar-title": "Sidebar Simple",
+    "sidebar-url": "http://www.mozilla.org/fr/firefox/partners/"
+  },
+  "ja": {
+    "key-key": "P",
+    "key-modifiers": "accel,alt",
+    "menu-label": "シンプルサイドバー",
+    "menu-accesskey": "S",
+    "sidebar-title": "シンプルサイドバー",
+    "sidebar-url": "http://www.mozilla.org/ja/firefox/partners/"
+  }
+}
