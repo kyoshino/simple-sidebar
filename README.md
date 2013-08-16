@@ -14,7 +14,7 @@ This is just a sample extension. First, you have to fork or clone the repository
 
 * `bootstrap.js` contains the logic as you can see. Change the `basename` variable to your own. You don't have to touch the other part of the code.
 * `install.rdf` contains the meta data. Modify the `id`, `name`, `description`, `version`, `creator`, `homepageURL` and `localized`  properties. Remove the existing `localized` properties if you don't have any localization. See [Install Manifests](https://developer.mozilla.org/en-US/docs/Install_Manifests) for details.
-* `locales.json` contains the localized strings as well as the sidebar URL. Add or remove your own locales.
+* `locales.json` contains the localized strings as well as the sidebar URL. Add or remove your own locales. The `key-key` and `key-modifiers` properties set a keyboard shortcut to open and close the sidebar. In this sample, it will be Ctrl+Alt+P on Windows and Linux, Cmd+Alt+P on Mac. See [Keyboard Shortcuts](https://developer.mozilla.org/en-US/docs/XUL/Tutorial/Keyboard_Shortcuts) for details.
 
 Once your customization is done, pack it. Archive those three files into a single ZIP file using your favorite archiver. Note that archiving the containing `source` directory will not work. Archive the three *files*, then rename the ZIP file to an arbitrary name ending with a `xpi` file extension, like the sample `simple-sidebar.xpi` file under the `bundles` directory. That's it. Now you can drag and drop the XPI file onto your Firefox browser window to install. Hooray!
 
