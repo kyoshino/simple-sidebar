@@ -16,6 +16,7 @@ Cu.import('resource://gre/modules/NetUtil.jsm');
  * Core
  */
 
+// This variable should be modified in a derivative work
 let basename = 'simple-sidebar',
     baseuri;
 
@@ -35,8 +36,8 @@ function add_elements (window) {
     let key = doc.createElement('key');
     key.setAttribute('id', prefix + 'key');
     key.setAttribute('command', prefix + 'broadcaster');
-    key.setAttribute('key', str['key-key']);
-    key.setAttribute('modifiers', str['key-modifiers']);
+    key.setAttribute('key', str['shortcut-key']);
+    key.setAttribute('modifiers', str['shortcut-modifiers']);
     keyset.appendChild(key);
     // Sometimes the keyboard shortcut doesn't work.
     // Reload the keyset to activate the key. (Bug 832984)
