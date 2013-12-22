@@ -11,6 +11,7 @@ const Cc = Components.classes,
 // Load JavaScript code modules
 Cu.import('resource://gre/modules/Services.jsm');
 Cu.import('resource://gre/modules/NetUtil.jsm');
+Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
 /**
  * Core
@@ -31,6 +32,10 @@ function init (window) {
 function init_delay (window) {
   // Add all the corresponding elements to the current browser window
   add_elements(window);
+
+  // Observe location bar changes
+  Services.wm.getMostRecentWindow("navigator:browser")
+          .gBrowser.addProgressListener(browser_listener);
 }
 
 function add_elements (window) {
@@ -39,6 +44,9 @@ function add_elements (window) {
       bcset = doc.getElementById('mainBroadcasterSet'),
       menupopup = doc.getElementById('viewSidebarMenu'),
       prefix = basename + '-';
+
+  let url = Services.wm.getMostRecentWindow("navigator:browser")
+                    .gBrowser.currentURI.spec;
 
   // key
   if (keyset) {
@@ -61,7 +69,7 @@ function add_elements (window) {
     bc.setAttribute('autoCheck', 'false');
     bc.setAttribute('type', 'checkbox');
     bc.setAttribute('group', 'sidebar');
-    bc.setAttribute('sidebarurl', str['sidebar-url']);
+    bc.setAttribute('sidebarurl', url);
     bc.setAttribute('sidebartitle', str['sidebar-title']);
     bc.setAttribute('accesskey', str['menu-accesskey']);
     bc.setAttribute('oncommand', 'toggleSidebar("' + prefix + 'broadcaster")');
@@ -78,6 +86,36 @@ function add_elements (window) {
   }
 }
 
+let browser_listener = {
+  oldURL: null,
+
+  process: function (aURI) {
+    if (aURI.spec == this.oldURL) return;
+
+    let doc = Services.wm.getMostRecentWindow("navigator:browser").document;
+
+    // If the sidebar is open, change the URL
+    if (doc.getElementById(basename + '-broadcaster').getAttribute('checked') === 'true') {
+      doc.getElementById('sidebar').contentWindow.location = aURI.spec;
+    }
+
+    this.oldURL = aURI.spec;
+  },
+
+  // nsIWebProgressListener
+  QueryInterface: XPCOMUtils.generateQI(['nsIWebProgressListener',
+                                         'nsISupportsWeakReference']),
+
+  onLocationChange: function (aProgress, aRequest, aURI) {
+      this.process(aURI);
+  },
+
+  onStateChange: function () {},
+  onProgressChange: function () {},
+  onStatusChange: function () {},
+  onSecurityChange: function () {}
+};
+
 function uninit (window) {
   if (!window) {
     return;
@@ -85,6 +123,10 @@ function uninit (window) {
 
   // Remove all the corresponding elements from the current browser window
   remove_elements(window);
+
+  // Remove the observer
+  Services.wm.getMostRecentWindow("navigator:browser")
+          .gBrowser.removeProgressListener(browser_listener);
 }
 
 function remove_elements (window) {
