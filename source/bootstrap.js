@@ -20,11 +20,20 @@ Cu.import('resource://gre/modules/NetUtil.jsm');
 let basename = 'simple-sidebar',
     baseuri;
 
-function add_elements (window) {
+function init (window) {
   if (!window) {
     return;
   }
 
+  load_locales(window);
+}
+
+function init_delay (window) {
+  // Add all the corresponding elements to the current browser window
+  add_elements(window);
+}
+
+function add_elements (window) {
   let doc = window.document,
       keyset = doc.getElementById('mainKeyset'),
       bcset = doc.getElementById('mainBroadcasterSet'),
@@ -40,7 +49,7 @@ function add_elements (window) {
     key.setAttribute('modifiers', str['shortcut-modifiers']);
     keyset.appendChild(key);
     // Sometimes the keyboard shortcut doesn't work.
-    // Reload the keyset to activate the key. (Bug 832984)
+    // Reload the keyset to activate the key. (A workaround from Bug 832984)
     keyset.parentElement.appendChild(keyset);
   }
 
@@ -69,12 +78,16 @@ function add_elements (window) {
   }
 }
 
-function remove_elements (window) {
+function uninit (window) {
   if (!window) {
     return;
   }
 
-  // Remove all the corresponding elements from the browser window
+  // Remove all the corresponding elements from the current browser window
+  remove_elements(window);
+}
+
+function remove_elements (window) {
   let elements = window.document.querySelectorAll('[id^="' + basename + '"]');
   for (let element of elements) {
     element.parentElement.removeChild(element);
@@ -127,7 +140,7 @@ function load_locales (window) {
     }
 
     // Now we can add something to the browser window
-    add_elements(window);
+    init_delay(window);
   });
 }
 
@@ -142,7 +155,7 @@ let win_listener = {
               .getInterface(Ci.nsIDOMWindowInternal || Ci.nsIDOMWindow);
     window.addEventListener('load', function listener () {
       window.removeEventListener('load', listener, false);
-      load_locales(window);
+      init(window);
     });
   },
   onCloseWindow: function (window) {},
@@ -157,7 +170,7 @@ function startup (data, reason) {
 
   // Load into any existing windows
   while (enumerator.hasMoreElements()) {
-    load_locales(enumerator.getNext().QueryInterface(Ci.nsIDOMWindow));
+    init(enumerator.getNext().QueryInterface(Ci.nsIDOMWindow));
   }
 
   // Load into any new windows
@@ -175,7 +188,7 @@ function shutdown (data, reason) {
   wm.removeListener(win_listener);
 
   while (enumerator.hasMoreElements()) {
-    remove_elements(enumerator.getNext().QueryInterface(Ci.nsIDOMWindow));
+    uninit(enumerator.getNext().QueryInterface(Ci.nsIDOMWindow));
   }
 }
 

@@ -9,15 +9,15 @@
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>17.0</em:minVersion>
-        <em:maxVersion>25.*</em:maxVersion>
+        <em:minVersion>24.0</em:minVersion>
+        <em:maxVersion>29.*</em:maxVersion>
       </Description>
     </em:targetApplication>
     <!-- The following properties should be modified in a derivative work -->
     <em:id>simple-sidebar@britegrid.com</em:id>
     <em:name>Simple Sidebar</em:name>
     <em:description>A sample bootstrapped extension to add a Web panel sidebar.</em:description>
-    <em:version>1.0.1</em:version>
+    <em:version>1.0.2</em:version>
     <em:creator>BriteGrid</em:creator>
     <em:homepageURL>http://www.britegrid.com/</em:homepageURL>
     <em:localized>
