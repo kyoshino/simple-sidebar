@@ -8,6 +8,8 @@ The `window.sidebar.addPanel` function has been removed from [Firefox 23](https:
 
 For the convenience of Web developers, I have made a restartless extension that simply adds a Web panel, like the legacy API. You can utilize this work to create your own sidebar Web panel.
 
+**Update**: Starting with Firefox 29, the new [Sidebar API](https://github.com/mozilla/addon-sdk/blob/australis/doc/module-source/sdk/ui.md) is available as part of the [Firefox Add-on SDK](https://developer.mozilla.org/en-US/Add-ons/SDK). You may want to try it instead of this custom extension.
+
 ## Fork, Customize, Pack
 
 This is just a sample extension. First, you have to fork or clone the repository and edit the code under the `source` directory.
