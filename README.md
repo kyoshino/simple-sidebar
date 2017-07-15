@@ -10,6 +10,8 @@ For the convenience of Web developers, I have made a restartless extension that 
 
 **Update**: Starting with Firefox 29, the new [Sidebar API](https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_sidebar) is available as part of the [Firefox Add-on SDK](https://developer.mozilla.org/en-US/Add-ons/SDK). You may want to try it instead of this custom extension.
 
+**Update 2**: Starting with Firefox 54, you can create a [WebExtension with a sidebar](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/user_interface/Sidebars). Given that WebExtensions will be the only supported extension type on [Firefox 57 and later](https://blog.mozilla.org/addons/2017/02/16/the-road-to-firefox-57-compatibility-milestones/), you should be using the new API instead of this legacy extension or SDK.
+
 ## Fork, Customize, Pack
 
 This is just a sample extension. First, you have to fork or clone the repository and edit the code under the `source` directory.
